@@ -1,0 +1,150 @@
+
+
+
+
+                                                                DAY-10 TASK
+
+
+1)Count student per course
+
+MariaDB [map]> insert into note values(20,'Kriba','BSC IT'),(21,'nivi','BSC CS'),(22,'Nisha','BSC IT'),(23,'Harini','BSC CS'),(24,'Sree','BSC IT'),(25,'Ipsi','BSC IT');
+Query OK, 6 rows affected (0.035 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+MariaDB [map]> select * from note;
++-----------+--------+--------+
+| Studentid | Name   | Course |
++-----------+--------+--------+
+|        20 | Kriba  | BSC IT |
+|        21 | nivi   | BSC CS |
+|        22 | Nisha  | BSC IT |
+|        23 | Harini | BSC CS |
+|        24 | Sree   | BSC IT |
+|        25 | Ipsi   | BSC IT |
++-----------+--------+--------+
+6 rows in set (0.000 sec)
+
+MariaDB [map]> select Course, count(*) As Coursecount from note Group by Course;
++--------+-------------+
+| Course | Coursecount |
++--------+-------------+
+| BSC CS |           2 |
+| BSC IT |           4 |
++--------+-------------+
+2 rows in set (0.001 sec)
+
+
+2)Average salary by department
+
+MariaDB [map]> create table task(
+    -> Name varchar(10),
+    -> Dept varchar(10),
+    -> Salary int);
+Query OK, 0 rows affected (0.049 sec)
+
+MariaDB [map]> insert into task values('preetha','BSC IT',23000),('Griba','BSC IT',40000),('Shek','HR',100000),('Mithu','Finance',150000);
+Query OK, 4 rows affected (0.006 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [map]> select * from task;
++---------+---------+--------+
+| Name    | Dept    | Salary |
++---------+---------+--------+
+| preetha | BSC IT  |  23000 |
+| Griba   | BSC IT  |  40000 |
+| Shek    | HR      | 100000 |
+| Mithu   | Finance | 150000 |
++---------+---------+--------+
+4 rows in set (0.000 sec)
+
+MariaDB [map]> select Dept,avg(Salary) As Avgsalary from task group by Dept;
++---------+-------------+
+| Dept    | Avgsalary   |
++---------+-------------+
+| BSC IT  |  31500.0000 |
+| Finance | 150000.0000 |
+| HR      | 100000.0000 |
++---------+-------------+
+3 rows in set (0.027 sec)
+
+
+3)Max/Min product price
+
+
+Database changed
+MariaDB [map]> create table price(
+    -> No int,
+    -> Productname varchar(10),
+    -> productprice int);
+Query OK, 0 rows affected (0.057 sec)
+
+MariaDB [map]> insert into price values(1,'Milk',30),(2,'Ghee',70),(3,'Curd',20),(4,'Cheese',50);
+Query OK, 4 rows affected (0.039 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [map]> select * from price;
++------+-------------+--------------+
+| No   | Productname | productprice |
++------+-------------+--------------+
+|    1 | Milk        |           30 |
+|    2 | Ghee        |           70 |
+|    3 | Curd        |           20 |
+|    4 | Cheese      |           50 |
++------+-------------+--------------+
+4 rows in set (0.000 sec)
+
+MariaDB [map]> select max(productprice) from price;
++-------------------+
+| max(productprice) |
++-------------------+
+|                70 |
++-------------------+
+1 row in set (0.000 sec)
+
+MariaDB [map]> select min(productprice)from price;
++-------------------+
+| min(productprice) |
++-------------------+
+|                20 |
++-------------------+
+1 row in set (0.042 sec)
+
+
+4)MAIN PROGRAM: select report generator with grouping
+
+
+MariaDB [map]> create table report(
+    -> Id int,
+    -> Name varchar(10),
+    -> Dept varchar(10),
+    -> Salary int);
+Query OK, 0 rows affected (0.063 sec)
+
+MariaDB [map]> insert into report values(1,'Anu','BSC IT',10000),(2,'Nivi','BSC IT',30000),(3,'Harini','BSC CS',50000),(4,'Kavya','BSC CT',60000),(5,'Dheeksha','BCA',89000);
+Query OK, 5 rows affected (0.038 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [map]> select * from report;
++------+----------+--------+--------+
+| Id   | Name     | Dept   | Salary |
++------+----------+--------+--------+
+|    1 | Anu      | BSC IT |  10000 |
+|    2 | Nivi     | BSC IT |  30000 |
+|    3 | Harini   | BSC CS |  50000 |
+|    4 | Kavya    | BSC CT |  60000 |
+|    5 | Dheeksha | BCA    |  89000 |
++------+----------+--------+--------+
+5 rows in set (0.000 sec)
+
+MariaDB [map]> select Dept, count(*) As TotalEmp,sum(Salary) As Totalsalary,Avg(Salary) As Averagesalary,Min(Salary) As Minimumsalary,Max(Salary) As Maximumsalary from report group by Dept;
++--------+----------+-------------+---------------+---------------+---------------+
+| Dept   | TotalEmp | Totalsalary | Averagesalary | Minimumsalary | Maximumsalary |
++--------+----------+-------------+---------------+---------------+---------------+
+| BCA    |        1 |       89000 |    89000.0000 |         89000 |         89000 |
+| BSC CS |        1 |       50000 |    50000.0000 |         50000 |         50000 |
+| BSC CT |        1 |       60000 |    60000.0000 |         60000 |         60000 |
+| BSC IT |        2 |       40000 |    20000.0000 |         10000 |         30000 |
++--------+----------+-------------+---------------+---------------+---------------+
+4 rows in set (0.001 sec)
+
+
