@@ -1,0 +1,229 @@
+
+
+
+
+                                                                                     DAY-7 TASK
+1)Create student and course tables
+
+
+MariaDB [map]> create table activity(
+    -> Studentid int,
+    -> name varchar(10),
+    -> Lastname varchar(20),
+    -> Coursename varchar(20),
+    -> Courseid int);
+Query OK, 0 rows affected (0.025 sec)
+
+MariaDB [map]> insert into activity values(21,'Anu','L','Data Science',761);
+Query OK, 1 row affected (0.043 sec)
+MariaDB [map]> insert into activity values(22,'Geetha','M','Data structure Alogorithm',777);
+Query OK, 1 row affected, 1 warning (0.042 sec)
+
+MariaDB [map]> insert into activity values(23,'Anjali','K','Data Analysis',745);
+Query OK, 1 row affected (0.028 sec)
+
+MariaDB [map]> insert into activity values(24,'Kavya','F','Fullstack',720);
+Query OK, 1 row affected (0.047 sec)
+
+MariaDB [map]> insert into activity values(25,'Meera','I','UI/UX',654);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [map]> select * from activity;
++-----------+--------+----------+----------------------+----------+
+| Studentid | name   | Lastname | Coursename           | Courseid |
++-----------+--------+----------+----------------------+----------+
+|        21 | Anu    | L        | Data Science         |      761 |
+|        22 | Geetha | M        | Data structure Alogo |      777 |
+|        23 | Anjali | K        | Data Analysis        |      745 |
+|        24 | Kavya  | F        | Fullstack            |      720 |
+|        25 | Meera  | I        | UI/UX                |      654 |
++-----------+--------+----------+----------------------+----------+
+5 rows in set (0.000 sec)
+
+
+2)Insert 5 records in each
+
+
+
+
+MariaDB [map]> create table course(
+    -> Courseid int;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 2
+MariaDB [map]> create table course(
+    -> courseid int,
+    -> courseplatform varchar(10),
+    -> courseMentor varchar(10));
+Query OK, 0 rows affected (0.047 sec)
+
+MariaDB [map]> insert into course values(777,'online','krithi');
+Query OK, 1 row affected (0.005 sec)
+
+MariaDB [map]> insert into course values(761,'online','Mythiri');
+Query OK, 1 row affected (0.042 sec)
+
+MariaDB [map]> insert into course values(789,'offline','Deekshi'),(897,'online','Arun'),(764,'offline','Harsha');
+Query OK, 3 rows affected (0.034 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [map]> select * from course;
++----------+----------------+--------------+
+| courseid | courseplatform | courseMentor |
++----------+----------------+--------------+
+|      777 | online         | krithi       |
+|      761 | online         | Mythiri      |
+|      789 | offline        | Deekshi      |
+|      897 | online         | Arun         |
+|      764 | offline        | Harsha       |
++----------+----------------+--------------+
+5 rows in set (0.000 sec)
+
+
+
+3)Update a course fee
+
+
+
+MariaDB [map]> select * from activity;
++-----------+--------+----------+----------------------+
+| Studentid | name   | Lastname | Coursename           |
++-----------+--------+----------+----------------------+
+|        21 | Anu    | L        | Data Science         |
+|        22 | Geetha | M        | Data structure Alogo |
+|        23 | Anjali | K        | Data Analysis        |
+|        24 | Kavya  | F        | Fullstack            |
+|        25 | Meera  | I        | UI/UX                |
++-----------+--------+----------+----------------------+
+5 rows in set (0.000 sec)
+
+MariaDB [map]> alter table course add coursefee int;
+Query OK, 0 rows affected (0.055 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [map]> select * from course;
++----------+----------------+--------------+-----------+
+| courseid | courseplatform | courseMentor | coursefee |
++----------+----------------+--------------+-----------+
+|      777 | online         | krithi       |      NULL |
+|      761 | online         | Mythiri      |      NULL |
+|      789 | offline        | Deekshi      |      NULL |
+|      897 | online         | Arun         |      NULL |
+|      764 | offline        | Harsha       |      NULL |
++----------+----------------+--------------+-----------+
+5 rows in set (0.000 sec)
+
+MariaDB [map]> update course set coursefee=24000 where courseid=777;
+Query OK, 1 row affected (0.032 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [map]> select * from course;
++----------+----------------+--------------+-----------+
+| courseid | courseplatform | courseMentor | coursefee |
++----------+----------------+--------------+-----------+
+|      777 | online         | krithi       |     24000 |
+|      761 | online         | Mythiri      |      NULL |
+|      789 | offline        | Deekshi      |      NULL |
+|      897 | online         | Arun         |      NULL |
+|      764 | offline        | Harsha       |      NULL |
++----------+----------------+--------------+-----------+
+5 rows in set (0.000 sec)
+
+MariaDB [map]> update course set coursefee=50000 where courseid=761;
+Query OK, 1 row affected (0.028 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [map]> update course set coursefee=45000 where courseid=789;
+Query OK, 1 row affected (0.053 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [map]> update course set coursefee=20000 where courseid=897;
+Query OK, 1 row affected (0.006 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [map]> update course set coursefee=30000 where courseid=764;
+Query OK, 1 row affected (0.041 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [map]> select * from course;
++----------+----------------+--------------+-----------+
+| courseid | courseplatform | courseMentor | coursefee |
++----------+----------------+--------------+-----------+
+|      777 | online         | krithi       |     24000 |
+|      761 | online         | Mythiri      |     50000 |
+|      789 | offline        | Deekshi      |     45000 |
+|      897 | online         | Arun         |     20000 |
+|      764 | offline        | Harsha       |     30000 |
++----------+----------------+--------------+-----------+
+5 rows in set (0.000 sec)
+
+4)MAIN PROGRAM: library DB-create 3 tables and populate data
+
+
+
+MariaDB [map]> create table librarybooks(
+    -> bookid int,
+    -> bookname varchar(10),
+    -> bookauthor varchar(20));
+Query OK, 0 rows affected (0.050 sec)
+
+MariaDB [map]> insert into librarybooks values(72,'Kids story book','James');
+Query OK, 1 row affected, 1 warning (0.035 sec)
+
+MariaDB [map]> insert into librarybooks values(80,'History books','John'),(99,'Physics','Lixsha');
+Query OK, 2 rows affected, 1 warning (0.036 sec)
+Records: 2  Duplicates: 0  Warnings: 1
+
+MariaDB [map]> select * from librarybooks;
++--------+------------+------------+
+| bookid | bookname   | bookauthor |
++--------+------------+------------+
+|     72 | Kids story | James      |
+|     80 | History bo | John       |
+|     99 | Physics    | Lixsha     |
++--------+------------+------------+
+3 rows in set (0.000 sec)
+MariaDB [map]> create table customer(
+    -> visitorname varchar(10),
+    -> bookid int,
+    -> bookauthor varchar(20));
+Query OK, 0 rows affected (0.026 sec)
+
+MariaDB [map]> insert into customer values('sree',79,'jack'),('Hari',69,'Mixsha');
+Query OK, 2 rows affected (0.052 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [map]> insert into customer values('Liki',70,'Kiran');
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [map]> select * from customer;
++-------------+--------+------------+
+| visitorname | bookid | bookauthor |
++-------------+--------+------------+
+| sree        |     79 | jack       |
+| Hari        |     69 | Mixsha     |
+| Liki        |     70 | Kiran      |
++-------------+--------+------------+
+3 rows in set (0.000 sec)
+MariaDB [map]> create table lib(
+    -> bookid int,
+    -> bookname varchar(10));
+Query OK, 0 rows affected (0.067 sec)
+
+MariaDB [map]> insert into lib values(97,'Environment Books');
+Query OK, 1 row affected, 1 warning (0.056 sec)
+
+MariaDB [map]> insert into lib values(48,'English story Books'),(70,'Chemistry books');
+Query OK, 2 rows affected, 2 warnings (0.004 sec)
+Records: 2  Duplicates: 0  Warnings: 2
+
+MariaDB [map]> select * from lib;
++--------+------------+
+| bookid | bookname   |
++--------+------------+
+|     97 | Environmen |
+|     48 | English st |
+|     70 | Chemistry  |
++--------+------------+
+3 rows in set (0.000 sec)
+
+
+
