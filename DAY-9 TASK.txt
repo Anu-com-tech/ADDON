@@ -1,0 +1,157 @@
+
+                                                       DAY-9 TASK
+
+
+1) Fetch student with >80 marks
+
+MariaDB [map]> select mini(age) from stu;
+ERROR 1305 (42000): FUNCTION map.mini does not exist
+MariaDB [map]> create table mark(
+    -> id int,
+    -> name varchar(10),
+    -> mark int);
+Query OK, 0 rows affected (0.057 sec)
+
+MariaDB [map]> insert into mark values(01,'Krish',85),(02,'Leela',89),(03,'Maxi',90),(04,'Likitha',95);
+Query OK, 4 rows affected (0.035 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [map]> select * from mark;
++------+---------+------+
+| id   | name    | mark |
++------+---------+------+
+|    1 | Krish   |   85 |
+|    2 | Leela   |   89 |
+|    3 | Maxi    |   90 |
+|    4 | Likitha |   95 |
++------+---------+------+
+4 rows in set (0.000 sec)
+
+
+2) List courses by ascending order
+
+MariaDB [map]> create table ascendingorder(
+    -> courseid int,
+    -> coursename varchar(20),
+    -> coursefee int);
+Query OK, 0 rows affected (0.056 sec)
+
+MariaDB [map]> insert into ascendingorder values(75,'Fullstack',13000),(70,'Web Development',6000),(85,'Devops',30000),(90,'AIDS',50000);
+Query OK, 4 rows affected (0.031 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [map]> select * from ascendingorder;
++----------+-----------------+-----------+
+| courseid | coursename      | coursefee |
++----------+-----------------+-----------+
+|       75 | Fullstack       |     13000 |
+|       70 | Web Development |      6000 |
+|       85 | Devops          |     30000 |
+|       90 | AIDS            |     50000 |
++----------+-----------------+-----------+
+4 rows in set (0.000 sec)
+
+MariaDB [map]> select * from ascendingorder order by coursefee;
++----------+-----------------+-----------+
+| courseid | coursename      | coursefee |
++----------+-----------------+-----------+
+|       70 | Web Development |      6000 |
+|       75 | Fullstack       |     13000 |
+|       85 | Devops          |     30000 |
+|       90 | AIDS            |     50000 |
++----------+-----------------+-----------+
+4 rows in set (0.000 sec)
+
+
+3)Search books by keyword using Like
+
+MariaDB [map]> create table keyword(
+    -> Bookid int,
+    -> Bookname varchar(20),
+    -> Bookauthor varchar(20));
+Query OK, 0 rows affected (0.023 sec)
+
+MariaDB [map]> insert into keyword values(78,'Tamil story Book','Thiru'),(70,'French novels','Alexa'),(95,'Dictionary','Mariya');
+Query OK, 3 rows affected (0.044 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [map]> select * from keyword;
++--------+------------------+------------+
+| Bookid | Bookname         | Bookauthor |
++--------+------------------+------------+
+|     78 | Tamil story Book | Thiru      |
+|     70 | French novels    | Alexa      |
+|     95 | Dictionary       | Mariya     |
++--------+------------------+------------+
+3 rows in set (0.000 sec)
+
+MariaDB [map]> select * from keyword where Bookauthor like A%;
+
+MariaDB [map]> select * from keyword where Bookauthor like 'A%';
++--------+---------------+------------+
+| Bookid | Bookname      | Bookauthor |
++--------+---------------+------------+
+|     70 | French novels | Alexa      |
++--------+---------------+------------+
+1 row in set (0.019 sec)
+
+MariaDB [map]> select * from keyword where Bookauthor like '_a%';
++--------+------------+------------+
+| Bookid | Bookname   | Bookauthor |
++--------+------------+------------+
+|     95 | Dictionary | Mariya     |
++--------+------------+------------+
+1 row in set (0.000 sec)
+
+MariaDB [map]> select * from keyword where Bookauthor like '%u';
++--------+------------------+------------+
+| Bookid | Bookname         | Bookauthor |
++--------+------------------+------------+
+|     78 | Tamil story Book | Thiru      |
++--------+------------------+------------+
+1 row in set (0.000 sec)
+
+4) MAIN PROGRAM: Customer record filtering system
+
+
+MariaDB [map]> create table filter(
+    -> name varchar(10),
+    -> Age int,
+    -> city varchar(20),
+    -> mail varchar(25));
+Query OK, 0 rows affected (0.062 sec)
+MariaDB [map]> insert into filter values('Haritha',25,'India','123@gmail.com'),('Myura',20,'Maxico','789@gmail.com'),('Shamini',32,'Newyork','548@gmail.com');
+Query OK, 3 rows affected (0.040 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [map]> insert into filter values('Hari',24,'Italy','129@gmail.com');
+Query OK, 1 row affected (0.022 sec)
+
+MariaDB [map]> select * from filter;
++---------+------+---------+---------------+
+| name    | Age  | city    | mail          |
++---------+------+---------+---------------+
+| Haritha |   25 | India   | 123@gmail.com |
+| Myura   |   20 | Maxico  | 789@gmail.com |
+| Shamini |   32 | Newyork | 548@gmail.com |
+| Hari    |   24 | Italy   | 129@gmail.com |
++---------+------+---------+---------------+
+4 rows in set (0.000 sec)
+
+MariaDB [map]> select * from filter where Age=32;
++---------+------+---------+---------------+
+| name    | Age  | city    | mail          |
++---------+------+---------+---------------+
+| Shamini |   32 | Newyork | 548@gmail.com |
++---------+------+---------+---------------+
+1 row in set (0.043 sec)
+
+MariaDB [map]> select * from filter where mail=123@gmail.com;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '@gmail.com' at line 1
+MariaDB [map]> select * from filter where mail='123@gmail.com';
++---------+------+-------+---------------+
+| name    | Age  | city  | mail          |
++---------+------+-------+---------------+
+| Haritha |   25 | India | 123@gmail.com |
++---------+------+-------+---------------+
+1 row in set (0.000 sec)
